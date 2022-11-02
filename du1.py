@@ -85,5 +85,4 @@ while(c):
     if d == c:
         print("Konec")
         break #ukončí
- exitonclick()
 exitonclick()
