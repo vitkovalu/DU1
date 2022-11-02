@@ -25,21 +25,21 @@ for i in range (a):
     left(180)
 c = int(a*b)  #počet opakování
 d = 0 #konstanta, ke které se pokaždé připočítá 1 po odehraném kroku 
-while(c):
+while (c):
     print("Na řadě jsou křížky")
     x= int(input("Zadej sloupec: ")) # určení souřadnic křížku
-    while x>a:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole
-        print("V hracím poli není tolik sloupců")
+    while x>a:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole (je větší než počet sloupců)
+        print("Mimo hrací pole")
         x= int(input("Zadej sloupec: "))
-    while x<0:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole
-        print("V hracím poli není tolik sloupců")
+    while x<1:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole (je menší než 0)
+        print("Mimo hrací pole")
         x= int(input("Zadej sloupec: "))
     y= int(input("Zadej řádek: "))
     while y>b:
-        print("V hracím poli není tolik sloupců")
+        print("Mimo hrací pole") #(je větší než počet řádků)
         y= int(input("Zadej řádek: "))
-    while y<0:
-        print("V hracím poli není tolik sloupců")
+    while y<1:
+        print("Mimo hrací pole") #(je menší než)
         y= int(input("Zadej řádek: "))
     #přesun pro kžížek
     up()
@@ -64,17 +64,17 @@ while(c):
     print("Na řadě jsou kolečka")
     xx=int(input("Zadej sloupec: "))
     while xx>a:
-        print("V hracím poli není tolik sloupců")
+        print("Mimo hrací pole")
         xx= int(input("Zadej sloupec: "))
-    while xx<0:
-        print("V hracím poli není tolik sloupců")
+    while xx<1:
+        print("Mimo hrací pole")
         xx= int(input("Zadej sloupec: "))
     yy=int(input("Zadej řádek: "))
     while yy>b:
-        print("V hracím poli není tolik sloupců")
+        print("Mimo hrací pole")
         yy= int(input("Zadej řádek: "))
-    while yy<0:
-        print("V hracím poli není tolik sloupců")
+    while yy<1:
+        print("Mimo hrací pole")
         yy= int(input("Zadej řádek: "))
     up()
     goto(S/2+(xx-1)*S,(yy-1)*S)
@@ -85,4 +85,5 @@ while(c):
     if d == c:
         print("Konec")
         break #ukončí
+    
 exitonclick()
