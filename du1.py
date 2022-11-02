@@ -23,7 +23,7 @@ for i in range (a):
     left(90)
     forward(b*S)
     left(180)
-o = int((a*b)/2)  #počet opakovánííí
+o = int((a*b)/2)  #počet opakování
 for l in range(o):
     print("Na řadě jsou křížky")
     x= int(input("Zadej sloupec: ")) # určení souřadnic křížku
