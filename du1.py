@@ -23,8 +23,9 @@ for i in range (a):
     left(90)
     forward(b*S)
     left(180)
-o = int((a*b)/2)  #počet opakování
-for l in range(o):
+c = int(a*b)  #počet opakování
+d = 0 #konstanta, ke které se pokaždé připočítá 1 po odehraném kroku 
+while(c):
     print("Na řadě jsou křížky")
     x= int(input("Zadej sloupec: ")) # určení souřadnic křížku
     while x>a:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole
@@ -55,6 +56,10 @@ for l in range(o):
     forward(U/2)
     left(180)
     forward(U)
+    d = d+1 #připočítá se že křížek odehrál
+    if d == c:  #kontroluje, jestli uz cislo neni vyšší než počet opakování
+        print("Konec")
+        break #ukončí, už se neopakuje a nevyžaduje další souřadnice
     # určení souřadnic kolečka
     print("Na řadě jsou kolečka")
     xx=int(input("Zadej sloupec: "))
@@ -76,35 +81,9 @@ for l in range(o):
     down()
     left(45)
     circle(S/2)
-#pro případ že je lichý počet hracích polí
-print("Na řadě jsou křížky")
-x= int(input("Zadej sloupec: ")) # určení souřadnic křížku
-while x>a:
-    print("V hracím poli není tolik sloupců")
-    x= int(input("Zadej sloupec: "))
-while x<0:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole
-    print("V hracím poli není tolik sloupců")
-    x= int(input("Zadej sloupec: "))
-y= int(input("Zadej řádek: "))
-while y>b:
-    print("V hracím poli není tolik sloupců")
-    y= int(input("Zadej řádek: "))
-while y<0:
-    print("V hracím poli není tolik sloupců")
-    y= int(input("Zadej řádek: "))
-#přesun pro kžížek 
-up()
-speed(10)
-goto (S/2+(x-1)*S,S/2+(y-1)*S)
-down() #křížek
-left(45)
-forward(U/2)
-left(180)
-forward(U)
-left(180)
-forward(U/2)
-left(90)
-forward(U/2)
-left(180)
-forward(U)
+    d= d+1 #připočítá se že křížek odehrál
+    if d == c:
+        print("Konec")
+        break #ukončí
+ exitonclick()
 exitonclick()
