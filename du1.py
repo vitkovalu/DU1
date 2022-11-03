@@ -28,18 +28,12 @@ d = 0 #konstanta, ke které se pokaždé připočítá 1 po odehraném kroku
 while (c):
     print("Na řadě jsou křížky")
     x= int(input("Zadej sloupec: ")) # určení souřadnic křížku
-    while x>a:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole (je větší než počet sloupců)
-        print("Mimo hrací pole")
-        x= int(input("Zadej sloupec: "))
-    while x<1:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole (je menší než 0)
+    while x>b or x<1:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole (je větší než počet sloupců nebi menší než 0)
         print("Mimo hrací pole")
         x= int(input("Zadej sloupec: "))
     y= int(input("Zadej řádek: "))
-    while y>b:
-        print("Mimo hrací pole") #(je větší než počet řádků)
-        y= int(input("Zadej řádek: "))
-    while y<1:
-        print("Mimo hrací pole") #(je menší než)
+    while y>b or y<1:
+        print("Mimo hrací pole") #je větší než počet řádků nebo menší než 0
         y= int(input("Zadej řádek: "))
     #přesun pro kžížek
     up()
@@ -60,20 +54,14 @@ while (c):
     if d == c:  #kontroluje, jestli uz cislo neni vyšší než počet opakování
         print("Konec")
         break #ukončí, už se neopakuje a nevyžaduje další souřadnice
-    # určení souřadnic kolečka
+    #určení souřadnic kolečka
     print("Na řadě jsou kolečka")
     xx=int(input("Zadej sloupec: "))
-    while xx>a:
-        print("Mimo hrací pole")
-        xx= int(input("Zadej sloupec: "))
-    while xx<1:
+    while xx>a or xx<1:
         print("Mimo hrací pole")
         xx= int(input("Zadej sloupec: "))
     yy=int(input("Zadej řádek: "))
-    while yy>b:
-        print("Mimo hrací pole")
-        yy= int(input("Zadej řádek: "))
-    while yy<1:
+    while yy>b or yy<1:
         print("Mimo hrací pole")
         yy= int(input("Zadej řádek: "))
     up()
@@ -81,8 +69,8 @@ while (c):
     down()
     left(45)
     circle(S/2)
-    d= d+1 #připočítá se že křížek odehrál
-    if d == c:
+    d= d+1 #připočítá se že kolečko odehrálo
+    if d == c: #kontroluje
         print("Konec")
         break #ukončí
     
