@@ -24,7 +24,7 @@ for i in range (a):
     forward(b*S)
     left(180)
 c = int(a*b)  #počet opakování
-d = 0 #hodnota, ke které se pokaždé připočítá 1 po odehraném kroku 
+d = 0 #hodnota, ke které se pokaždé připočítá 1 po té co jeden hráč odehraje
 #cyklus pro hru
 for l in range (c):
     print("Na řadě jsou křížky")
@@ -51,9 +51,9 @@ for l in range (c):
     forward(U/2)
     left(180)
     forward(U)
-    d = d+1 #připočítá se že křížek odehrál
+    d = d+1 #připočítá se, že křížek odehrál
     if d == c:  #kontroluje, jestli uz cislo neni vyšší než počet opakování
-        print("Konec")
+        print("Konec hry")
         break #ukončí, už se neopakuje a nevyžaduje další souřadnice
     #určení souřadnic kolečka
     print("Na řadě jsou kolečka")
@@ -72,6 +72,6 @@ for l in range (c):
     circle(S/2)   #kolečko
     d= d+1 #připočítá se, že kolečko odehrálo
     if d == c: #kontroluje
-        print("Konec")
+        print("Konec hry")
         break #ukončí   
 exitonclick()
