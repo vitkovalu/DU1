@@ -1,16 +1,16 @@
 from turtle import forward, exitonclick, right, left, speed, circle, up, down, goto
 import math
-a = int(input("napiš počet řádků: "))
+a = int(input("Napiš počet řádků: "))
 while a <1:     #aby tabulka nebyla záporná a 0 (žádná)
     print("Tabulka nelze vytvořit ze záporných čísel a 0")
-    a = int(input("napiš počet řádků: "))
-b = int(input("napiš počet sloupců: "))
+    a = int(input("Napiš počet řádků: "))
+b = int(input("Napiš počet sloupců: "))
 while b <1:
     print("Tabulka nelze vytvořit ze záporných čísel a 0")
-    b = int(input("napiš počet řádků: "))
+    b = int(input("Napiš počet sloupců: "))
 speed(50)
 S = 50 #délka strany
-U = (math.sqrt(S**2+S**2)) #délka úhlopříčky čtverce
+U = (math.sqrt(S**2+S**2)) #délka úhlopříčky čtverce (pro vykreslení křížku)
 #nakreslit mřížku
 for i in range (a):
     for j in range (b):
@@ -24,15 +24,16 @@ for i in range (a):
     forward(b*S)
     left(180)
 c = int(a*b)  #počet opakování
-d = 0 #konstanta, ke které se pokaždé připočítá 1 po odehraném kroku 
-while (c):
+d = 0 #hodnota, ke které se pokaždé připočítá 1 po odehraném kroku 
+#cyklus pro hru
+for l in range (c):
     print("Na řadě jsou křížky")
     x= int(input("Zadej sloupec: ")) # určení souřadnic křížku
     while x>b or x<1:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole (je větší než počet sloupců nebi menší než 0)
         print("Mimo hrací pole")
         x= int(input("Zadej sloupec: "))
     y= int(input("Zadej řádek: "))
-    while y>b or y<1:
+    while y>a or y<1:
         print("Mimo hrací pole") #je větší než počet řádků nebo menší než 0
         y= int(input("Zadej řádek: "))
     #přesun pro kžížek
@@ -57,21 +58,20 @@ while (c):
     #určení souřadnic kolečka
     print("Na řadě jsou kolečka")
     xx=int(input("Zadej sloupec: "))
-    while xx>a or xx<1:
+    while xx>b or xx<1:
         print("Mimo hrací pole")
         xx= int(input("Zadej sloupec: "))
     yy=int(input("Zadej řádek: "))
-    while yy>b or yy<1:
+    while yy>a or yy<1:
         print("Mimo hrací pole")
         yy= int(input("Zadej řádek: "))
     up()
     goto(S/2+(xx-1)*S,(yy-1)*S)
     down()
-    left(45)
-    circle(S/2)
-    d= d+1 #připočítá se že kolečko odehrálo
+    left(45)      #otočení na správný směr
+    circle(S/2)   #kolečko
+    d= d+1 #připočítá se, že kolečko odehrálo
     if d == c: #kontroluje
         print("Konec")
-        break #ukončí
-    
+        break #ukončí   
 exitonclick()
