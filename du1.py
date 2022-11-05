@@ -1,5 +1,6 @@
 from turtle import forward, exitonclick, right, left, speed, circle, up, down, goto
 import math
+
 a = int(input("Napiš počet řádků: "))
 while a <1:     #aby tabulka nebyla záporná a 0 (žádná)
     print("Tabulka nelze vytvořit ze záporných čísel a 0")
@@ -61,16 +62,16 @@ for l in range (c):
 
     #určení souřadnic kolečka
     print("Na řadě jsou kolečka")
-    xx=int(input("Zadej sloupec: "))
-    while xx>b or xx<1:
+    x=int(input("Zadej sloupec: "))
+    while x>b or x<1:
         print("Mimo hrací pole")
-        xx= int(input("Zadej sloupec: "))
-    yy=int(input("Zadej řádek: "))
-    while yy>a or yy<1:
+        x= int(input("Zadej sloupec: "))
+    y=int(input("Zadej řádek: "))
+    while y>a or y<1:
         print("Mimo hrací pole")
-        yy= int(input("Zadej řádek: "))
+        y= int(input("Zadej řádek: "))
     up()
-    goto(S/2+(xx-1)*S,(yy-1)*S)
+    goto(S/2+(x-1)*S,(y-1)*S)
     down()
     left(45)      #otočení na správný směr
     circle(S/2)   #kolečko
