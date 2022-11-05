@@ -8,9 +8,10 @@ b = int(input("Napiš počet sloupců: "))
 while b <1:
     print("Tabulka nelze vytvořit ze záporných čísel a 0")
     b = int(input("Napiš počet sloupců: "))
-speed(50)
+speed(10)
 S = 50 #délka strany
 U = (math.sqrt(S**2+S**2)) #délka úhlopříčky čtverce (pro vykreslení křížku)
+
 #nakreslit mřížku
 for i in range (a):
     for j in range (b):
@@ -23,8 +24,10 @@ for i in range (a):
     left(90)
     forward(b*S)
     left(180)
+
 c = int(a*b)  #počet opakování
 d = 0 #hodnota, ke které se pokaždé připočítá 1 po té co jeden hráč odehraje
+
 #cyklus pro hru
 for l in range (c):
     print("Na řadě jsou křížky")
@@ -55,6 +58,7 @@ for l in range (c):
     if d == c:  #kontroluje, jestli uz cislo neni vyšší než počet opakování
         print("Konec hry")
         break #ukončí, už se neopakuje a nevyžaduje další souřadnice
+
     #určení souřadnic kolečka
     print("Na řadě jsou kolečka")
     xx=int(input("Zadej sloupec: "))
@@ -74,4 +78,5 @@ for l in range (c):
     if d == c: #kontroluje
         print("Konec hry")
         break #ukončí   
+
 exitonclick()
