@@ -26,11 +26,11 @@ for i in range (a):
     forward(b*S)
     left(180)
 
-c = int(a*b)  #počet opakování
-d = 0 #hodnota, ke které se pokaždé připočítá 1 po té co jeden hráč odehraje
+opakovani = int(a*b)  #počet opakování, kolik je policek
+tah = 0 #hodnota, ke které se pokaždé připočítá 1 po té co jeden hráč odehraje %pocet tahů
 
 #cyklus pro hru
-for l in range (c):
+for l in range (opakovani):
     print("Na řadě jsou křížky")
     x= int(input("Zadej sloupec: ")) # určení souřadnic křížku
     while x>b or x<1:      #vrátit pokud je zadán sloupec nebo řádek mimo hrací pole (je větší než počet sloupců nebi menší než 0)
@@ -55,8 +55,8 @@ for l in range (c):
     forward(U/2)
     left(180)
     forward(U)
-    d = d+1 #připočítá se, že křížek odehrál
-    if d == c:  #kontroluje, jestli uz cislo neni vyšší než počet opakování
+    tah = tah+1 #připočítá se, že křížek odehrál
+    if tah == opakovani:  #kontroluje, jestli uz cislo neni vyšší než počet opakování
         print("Konec hry")
         break #ukončí, už se neopakuje a nevyžaduje další souřadnice
 
@@ -75,8 +75,8 @@ for l in range (c):
     down()
     left(45)      #otočení na správný směr
     circle(S/2)   #kolečko
-    d= d+1 #připočítá se, že kolečko odehrálo
-    if d == c: #kontroluje
+    tah = tah+1 #připočítá se, že kolečko odehrálo
+    if tah == opakovani: #kontroluje
         print("Konec hry")
         break #ukončí   
 
