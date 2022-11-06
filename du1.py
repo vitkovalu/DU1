@@ -27,7 +27,7 @@ for i in range (a):
     left(180)
 
 opakovani = int(a*b)  #počet opakování, kolik je policek
-tah = 0 #hodnota, ke které se pokaždé připočítá 1 po té co jeden hráč odehraje %pocet tahů
+tah = 0 #hodnota, ke které se pokaždé připočítá 1 po té co jeden hráč odehraje,pocet tahů
 
 #cyklus pro hru
 for l in range (opakovani):
