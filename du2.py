@@ -52,8 +52,13 @@ try:
                 sum_rok = 0
                 dny =0      
             dny += 1
-            sum_rok += float(row[-1])
+            #sum_rok += float(row[-1])
             rok = int(datum_split[-1])
+            try:
+                sum_rok += float(row[-1])
+            except ValueError:   #chyba kdyz neni cislo
+                pass #uz nevypisuje hlášku, je v minulem cyklu
+            
         #poslední rok už nesplňuje podmínku, proto nakonci zvlášť
         posledni_rok=round(sum_rok/dny,4) #posledni den
         prvni_den.append(posledni_rok)
