@@ -3,6 +3,9 @@ import math
 
 #proměnné pro sedmidenní průtoky
 sum_tyden=0
+#proměnné pro maxima a minima
+maximum=0
+minimum=math.inf
 
 #SEDMIDENNÍ
 try:
@@ -24,6 +27,15 @@ try:
                 outrow = (f"{row[0]}, {row[1]}, {datum}, {sedmidenni}\n")
                 g.write(outrow)
                 sum_tyden = 0   #po sedmém se sum opět vynuluje
+            
+            if float(row[-1]) > maximum:   #prochází řádky a hledá maximální průtok
+                datum_max = row[-2]
+                maximum = float(row[-1])
+            if float(row[-1]) < minimum:   #prochází řádky a hledá minimální průtok
+                datum_min = row[-2]
+                minimum = float(row[-1])
+        print (f"Nejvyšší hodnota průtoku je {maximum} ze dne {datum_max}")
+        print (f"Nejnižší hodnota průtoku je {minimum} ze dne {datum_min}")
 except FileNotFoundError:
     print("Soubor nenalezen")
 
@@ -31,9 +43,7 @@ except FileNotFoundError:
 sum_rok=0
 dny=0
 rok=0
-#proměnné pro maxima a minima
-maximum=0
-minimum=math.inf
+
 try:
     with open ("vstup.csv", encoding="utf-8", newline='') as f,\
         open("vystup_rok.csv","w",encoding="utf-8", newline='') as h:
@@ -64,14 +74,7 @@ try:
         prvni_den.append(posledni_rok)
         writer.writerow(prvni_den)
 
-        if float(row[-1]) > maximum:   #prochází řádky a hledá maximální průtok
-            datum_max = row[-2]
-            maximum = float(row[-1])
-        if float(row[-1]) < minimum:   #prochází řádky a hledá minimální průtok
-            datum_min = row[-2]
-            minimum = float(row[-1])
-        print (f"Nejvyšší hodnota průtoku je {maximum} ze dne {datum_max}")
-        print (f"Nejnižší hodnota průtoku je {minimum} ze dne {datum_min}")
+ 
 except FileNotFoundError: 
     print("Soubor nenalezen")
      
