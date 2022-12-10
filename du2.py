@@ -12,21 +12,19 @@ try:
         reader = csv.reader(f, delimiter=",")
         for index, row in enumerate (reader, start =1):   #očísluje řádky, začíná 1
             cislo_radku= int(index)
-
             try:
                 sum_tyden += float(row[-1])  #připočítá hodnotu každého řádku
             except ValueError:   #chyba kdyz neni cislo
-                print("Průtok není zadán jako číslo") #TAKY NEFUNGUJE
+                print("Průtok není zadán jako číslo")
 
             if cislo_radku%7 == 1:       #vypíše jen každý sedmy (začíná nulou), pokud je delitelné 7 se zbytkem 1
-                #g.write(str(index) +": " + str(radek) +"\n")
                 datum = (row[-2])
             if cislo_radku%7 == 0: 
                 sedmidenni = round(sum_tyden/7,4)
                 outrow = (f"{row[0]}, {row[1]}, {datum}, {sedmidenni}\n")
                 g.write(outrow)
                 sum_tyden = 0   #po sedmém se sum opět vynuluje
-except FileNotFoundError:   #PROC NEFUNGUJE?????
+except FileNotFoundError:
     print("Soubor nenalezen")
 
 #proměnné pro roční průtoky
@@ -43,7 +41,7 @@ try:
         writer =csv.writer (h)
         for row in reader:
             datum_split = row[2].split(".")
-            if rok ==0:
+            if rok ==0:   #první řádek
                 prvni_den = row[0:-1]
 
             if rok != int(datum_split[-1]) and rok !=0:
@@ -69,7 +67,6 @@ try:
             minimum = float(row[-1])
         print (f"Nejvyšší hodnota průtoku je {maximum} ze dne {datum_max}")
         print (f"Nejnižší hodnota průtoku je {minimum} ze dne {datum_min}")
-
-except FileNotFoundError:   #PROC NEFUNGUJE?????
+except FileNotFoundError: 
     print("Soubor nenalezen")
      
