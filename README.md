@@ -1,6 +1,6 @@
 # DU1
 Uživatelská dokumentace
-Program načítá vstupní soubor pojmenovaný vstup.csv, obsahující průměrné říční průtoky. Program vypočítá do výstupového souboru vystup_7dni.csv sedmidenní průtoky vstupních dat a do souboru vystup_rok.csv roční průměry. Na konci vypíše nejvyšší a nejnižší průtok ze vstupních dat spolu s datem, ve kterém k nim došlo.
+Program načítá vstupní soubor pojmenovaný vstup.csv, obsahující průměrné říční průtoky. Program vypočítá do výstupového Cancel changessouboru vystup_7dni.csv sedmidenní průtoky vstupních dat a do souboru vystup_rok.csv roční průměry. Na konci vypíše nejvyšší a nejnižší průtok ze vstupních dat spolu s datem, ve kterém k nim došlo.
 Vstupní data musí být v tomto formátu:
 	139000,QD,10.11.1980,   0.6700
 139000,QD,11.11.1980,   0.5800
