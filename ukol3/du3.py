@@ -32,41 +32,43 @@ try:
     for adresa in data_adresy["features"]:
         adresa_x = adresa["geometry"]["coordinates"][0]      
         adresa_y = adresa["geometry"]["coordinates"][1]        #do proměnných uloženy souřadnice ve wgs
-        jtsk_adresy = wgs2jtsk.transform(adresa_x,adresa_y)   #převod na SJTSK
+        jtsk_adresy = wgs2jtsk.transform(adresa_x,adresa_y)   #převod na JTSK
 
         for kontejner in data_kontejnery["features"]:
             pristup = kontejner["properties"]["PRISTUP"]
             aktualni_kontejner = kontejner["properties"]["ID"]
-
             if pristup == "volně":                             #vybírá jen volně přístupné
                 kontejner_x = kontejner["geometry"]["coordinates"][0]
                 kontejner_y = kontejner["geometry"]["coordinates"][1]  #do proměnných uloženy souřadnice kontejnerů
                 vzdalenost = float(sqrt((jtsk_adresy[0]-kontejner_x)**2+(jtsk_adresy[1]-kontejner_y)**2))  #spoctené vzdálenosti pomocí Pythagorovi věty
-                
                 if min_vzdalenost == None or min_vzdalenost>vzdalenost:
                     min_vzdalenost = vzdalenost
                     nejbliz_kontejner = aktualni_kontejner
 
+            ulice = adresa["properties"]["addr:street"]
+            cislo = adresa["properties"]["addr:housenumber"]
+            aktualni_adresa = ulice + (" ") + cislo  #aby byla adresa ve stejném formátu jako kontejner['properties']['STATIONNAME'] 
+            if pristup == "obyvatelům domu":
+                if aktualni_adresa == kontejner['properties']['STATIONNAME']:
+                    min_vzdalenost = 0
+
         if min_vzdalenost > 10000:
             print("Nejbližší kontejner se nachází dále než 10 km")
-            exit()             #program se ukončí, je-li nejbližší program vzdálenn dál než 10 km
+            exit()             #program se ukončí, je-li nejbližší kontejner vzdálenn dál než 10 km
 
-        adresa["properties"]["vzdalenost_od_kont"] = min_vzdalenost
+        adresa["properties"]["vzdalenost_od_kontejneru"] = round(min_vzdalenost)
         adresa["properties"]["kontejner"] = nejbliz_kontejner        
         min_vzdalenost = None  #opět se vynuluje
 
 except KeyError:
     print("Soubor nemá všechny požadované atributy")
 
-vzdalenosti = [adresa["properties"]["vzdalenost_od_kont"] for adresa in data_adresy["features"]]
+vzdalenosti = [adresa["properties"]["vzdalenost_od_kontejneru"] for adresa in data_adresy["features"]]
                                           
-max_vzdalenost = round(max(vzdalenosti))
-index_kontejneru= (vzdalenosti.index(max(vzdalenosti)))   #najde index maximální vzdálenosti, čímž se uloží/najde adresa toho místa
+max_vzdalenost = max(vzdalenosti)
+index_kontejneru= (vzdalenosti.index(max_vzdalenost))   #najde index maximální vzdálenosti, čímž se uloží/najde adresa toho místa
 ulice = data_adresy["features"][index_kontejneru]["properties"]["addr:street"]
 cislo_domu = data_adresy["features"][index_kontejneru]["properties"]["addr:housenumber"]
-
-print(f"Průměrná vzdálenost ke kontejneru je {round(mean(vzdalenosti),1)} m")            
-print(f"Medián vzdálenosti ke kontejneru: {round(median(vzdalenosti),1)} m")               
-print(f"Nejdále ke kontejneru je z adresy {ulice} {cislo_domu} a to {max_vzdalenost} m")
-
-
+print(f"Průměrná vzdálenost ke kontejneru je {round(mean(vzdalenosti))} m")            
+print(f"Medián vzdálenosti ke kontejneru: {round(median(vzdalenosti))} m")               
+print(f"Nejdále ke kontejneru je z adresy {ulice} {cislo_domu} a to {round(max_vzdalenost)} m")
