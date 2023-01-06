@@ -33,18 +33,18 @@ try:
     for adresa in data_adresy["features"]:
         adresa_x = adresa["geometry"]["coordinates"][0]      
         adresa_y = adresa["geometry"]["coordinates"][1]        #do proměnných uloženy souřadnice ve wgs
-        jtsk_adresy = wgs2jtsk.transform(adresa_x,adresa_y)   #převod na JTSK
+        jtsk_adresy = wgs2jtsk.transform(adresa_x,adresa_y)    #převod na S-JTSK
 
         for kontejner in data_kontejnery["features"]:
             pristup = kontejner["properties"]["PRISTUP"]
-            aktualni_kontejner = kontejner["properties"]["ID"]
+            aktualni_kontejner = kontejner["properties"]["ID"] #ID ke kazdemu kontejneru
             if pristup == "volně":                             #vybírá jen volně přístupné
                 kontejner_x = kontejner["geometry"]["coordinates"][0]
                 kontejner_y = kontejner["geometry"]["coordinates"][1]  #do proměnných uloženy souřadnice kontejnerů
                 vzdalenost = float(sqrt((jtsk_adresy[0]-kontejner_x)**2+(jtsk_adresy[1]-kontejner_y)**2))  #spoctené vzdálenosti pomocí Pythagorovy věty
                 if min_vzdalenost == None or min_vzdalenost>vzdalenost:
-                    min_vzdalenost = vzdalenost
-                    nejbliz_kontejner = aktualni_kontejner
+                    min_vzdalenost = vzdalenost                      #ukládá se nejnižší vzdálenost
+                    nejbliz_kontejner = aktualni_kontejner           #zároveň se ukládá ID nejbližšího kontejneru
 
             ulice = adresa["properties"]["addr:street"]
             cislo = adresa["properties"]["addr:housenumber"]
@@ -57,18 +57,18 @@ try:
             print("Nejbližší kontejner se nachází dále než 10 km")
             exit()             #program se ukončí, je-li nejbližší kontejner vzdálen dál než 10 km
 
-        adresa["properties"]["vzdalenost_od_kontejneru"] = round(min_vzdalenost)
-        adresa["properties"]["kontejner"] = nejbliz_kontejner        
+        adresa["properties"]["vzdalenost_ke_kontejneru"] = round(min_vzdalenost)   #do slovniku adresa se přidá nový klíč vzdálenost ke kontejneru
+        adresa["properties"]["kontejner"] = nejbliz_kontejner                      # a ještě ID kontejneru
         min_vzdalenost = None  #opět se vynuluje
         vystup.append(adresa)   #do seznamu se přidají vzdálenost od kontejneru a ID
 
 except KeyError:
     print("Soubor nemá všechny požadované atributy")
 
-with open("adresy_kontejnery.geojson","w", encoding="utf-8") as out:       #vytvoří se výstupní soubor 
-    json.dump(vystup, out, ensure_ascii = False, indent = 2)
+with open("adresy_kontejnery.geojson","w", encoding="utf-8") as out:       #vytvoří se výstupní soubor a úřídáse výstup seznam
+    json.dump(vystup, out, ensure_ascii = False, indent = 2)          
 
-vzdalenosti = [adresa["properties"]["vzdalenost_od_kontejneru"] for adresa in data_adresy["features"]]
+vzdalenosti = [adresa["properties"]["vzdalenost_ke_kontejneru"] for adresa in data_adresy["features"]]
 #do proměnné se ukládají nejmenší vzdálenosti
                                           
 max_vzdalenost = max(vzdalenosti)    #vybere nehvětší vzdálenosti z celé proměnné nejnižších vzdáleností (vzdalenosti)
