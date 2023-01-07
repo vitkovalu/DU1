@@ -2,8 +2,7 @@
 
 **UŽIVATELSKÁ DOKUMENTACE**
 
-Program spouští soubory obsahující adresy a kontejnery jedné čtvrti ve formátu JSON a GEOJSON – soubor obsahující adresy s názvem *adresy.geojson* v souřadnicovém systému WGS, soubor s kontejnery: *kontejnery.json* v S-JTSK. 
-
+Program spouští soubory obsahující adresy a kontejnery jedné čtvrti ve formátu JSON a GEOJSON – soubor obsahující adresy s názvem *adresy.geojson* musí mít atributy obsahující klíče "addr:housenumber", "addr:place" a souřadnice "coordinates" v souřadnicovém systému WGS , a soubor s kontejnery: *kontejnery.json*  musí obsahovat klíče "STATIONNAME", "PRISTUP" a souřadnice "coordinates" v S-JTSK.
 Program vypíše:
 - počet načtených adres a kontejnerů
 - průměr nejbližších vzdáleností ke kontejneru konejneru
