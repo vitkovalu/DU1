@@ -5,23 +5,33 @@ from math import sqrt
 from json.decoder import JSONDecodeError
 
 wgs2jtsk = Transformer.from_crs(4326,5514,always_xy=True)   #prevod na krovaka
-min_vzdalenost = None
+min_vzdalenost = 0
 
 try:
     with open("adresy.geojson", encoding ="utf-8") as adresy:    #nactení adres
         data_adresy = json.load(adresy)
 except FileNotFoundError:
     print("Vstupní soubor s adresami neexistuje")
+    exit()
 except JSONDecodeError:
     print("Vstupní soubor s adresami není validní")
+    exit()
+except PermissionError:
+    print("Program nemá právo číst vstupní soubor s adresami")
+    exit()
 
 try:
     with open("kontejnery.json", encoding ="utf-8") as kontejnery: #nactení kontejnerů
         data_kontejnery = json.load(kontejnery)
 except FileNotFoundError:
     print("Vstupní soubor s kontejnery neexistuje")
+    exit()
 except JSONDecodeError:
     print("Vstupní soubor s kontejnery není validní")
+    exit()
+except PermissionError:
+    print("Program nemá právo číst vstupní soubor s kontejnery")
+    exit()
 
 pocet_adres = len(data_adresy["features"])     
 pocet_kontejnery = len(data_kontejnery["features"])    #spocten celkový pocet adres a kontejnerů
@@ -42,10 +52,10 @@ try:
                 kontejner_x = kontejner["geometry"]["coordinates"][0]
                 kontejner_y = kontejner["geometry"]["coordinates"][1]  #do proměnných uloženy souřadnice kontejnerů
                 vzdalenost = float(sqrt((jtsk_adresy[0]-kontejner_x)**2+(jtsk_adresy[1]-kontejner_y)**2))  #spoctené vzdálenosti pomocí Pythagorovy věty
-                if min_vzdalenost == None or min_vzdalenost>vzdalenost:
+                if min_vzdalenost == 0 or min_vzdalenost>vzdalenost:
                     min_vzdalenost = vzdalenost                      #ukládá se nejnižší vzdálenost
                     nejbliz_kontejner = aktualni_kontejner           #zároveň se ukládá ID nejbližšího kontejneru
-                continue
+
             ulice = adresa["properties"]["addr:street"]
             cislo = adresa["properties"]["addr:housenumber"]
             aktualni_adresa = ulice + (" ") + cislo  #aby byla adresa ve stejném formátu jako kontejner['properties']['STATIONNAME'] 
@@ -58,9 +68,9 @@ try:
             print("Nejbližší kontejner se nachází dále než 10 km")
             exit()             #program se ukončí, je-li nejbližší kontejner vzdálen dál než 10 km
 
-        adresa["properties"]["vzdalenost_ke_kontejneru"] = round(min_vzdalenost)   #do slovniku adresa se přidá nový klíč vzdálenost ke kontejneru
+        adresa["properties"]["vzdalenost_ke_kontejneru"] = round(min_vzdalenost)   # do slovniku adresa se přidá nový klíč vzdálenost ke kontejneru
         adresa["properties"]["kontejner"] = nejbliz_kontejner                      # a ještě ID kontejneru
-        min_vzdalenost = None  #opět se vynuluje
+        min_vzdalenost = 0  #opět se vynuluje
 
 except KeyError:
     print("Soubor nemá všechny požadované atributy")
